@@ -279,6 +279,37 @@ let i = 0;
 let score = 0;
 let answers = {}; // IMPORTANT
 
+/*=====Timer Variable===*/
+let timeLeft = 1200; // 20 minutes
+let timerInterval;
+
+/*===== Start Timer Function*/
+function startTimer(){
+
+    timerInterval = setInterval(function(){
+
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        document.getElementById("timer").innerText =
+        "Time: " + minutes + ":" + seconds;
+
+        timeLeft--;
+
+        if(timeLeft < 0){
+            clearInterval(timerInterval);
+            document.getElementById("timer").innerText = "Time Over ⛔";
+            alert("Time is up! Test will be submitted.");
+            submitData();
+        }
+
+    }, 1000);
+}
+
+
+
 async function loadQuestionsFromSheet() {
     const res = await fetch("https://script.google.com/macros/s/AKfycbw-1558uu1xXl76sWb46G0HHRmJAIYcl3RiePloyNSlvU_rQiSasCYodN8RkmK5owr1Eg/exec");
     q = await res.json();
@@ -315,6 +346,8 @@ async function startTest(){
 
     document.getElementById("formSection").style.display = "none";
     document.getElementById("quizSection").style.display = "block";
+	
+	 startTimer(); // 🔥 HERE
 
     loadQ();
 }
@@ -355,7 +388,7 @@ function check(ans){
 
 /* ===== SUBMIT ===== */
 function submitData(){
-
+clearInterval(timerInterval);
 let name = document.getElementById("name").value;
 let whatsapp = document.getElementById("whatsapp").value;
 let date = document.getElementById("date").value;
