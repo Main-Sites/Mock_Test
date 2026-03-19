@@ -1,1 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
+<title>Nootech Computer Centre - Online Mock Test</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- LINK CSS -->
+<link rel="stylesheet" href="G:\Nootech Website details\Exam Portals indexes\Mock_Test\ntc\css\style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<img src="https://raw.githubusercontent.com/Main-Sites/Mock_Test/refs/heads/main/img/logo.png" class="logo">
+<div id="timer">Time: 20:00</div>
+
+<h1>Nootech Computer Centre</h1>
+<h2>Online Mock Test Portal</h2>
+
+<!-- FORM -->
+<div id="formSection">
+    <input type="text" id="name" placeholder="Candidate Name"><br>
+    <input type="text" id="whatsapp" placeholder="WhatsApp Number"><br>
+    <input type="date" id="date"><br><br>
+
+    <button onclick="startTest()">Start Test</button>
+</div>
+
+<!-- QUIZ -->
+<div id="quizSection" style="display:none;">
+
+    <div id="questionBox"></div>
+
+    <div>
+        <div class="option-btn" onclick="check('A')" id="A"></div>
+        <div class="option-btn" onclick="check('B')" id="B"></div>
+        <div class="option-btn" onclick="check('C')" id="C"></div>
+        <div class="option-btn" onclick="check('D')" id="D"></div>
+    </div>
+
+    <br><br>
+    <button id="submitBtn" style="display:none;" onclick="submitData()">Submit Test</button>
+</div>
+
+<div id="result"></div>
+<a href="https://nootechcomputercentre.github.io/main-site/" id="nextLink" target="_blank">Click Me!!</a>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+
+  <p>© 2026 Nootech Computer Centre. All Rights Reserved.</p>
+
+  <div class="socials">
+
+    <img src="https://raw.githubusercontent.com/Main-Sites/Mock_Test/refs/heads/main/img/Admopen.gif" class="Lside-img">
+
+    <a href="https://www.facebook.com/profile.php?id=61567543754358" target="_blank"><i class="fab fa-facebook"></i></a>
+    <a href="https://www.instagram.com/nootechcomputercentre" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.threads.com/@nootechcomputercentre" target="_blank"><i class="fab fa-threads"></i></a>
+    <a href="https://nootechcomputercentre.github.io/main-site/" target="_blank"><i class="fas fa-globe"></i></a>
+
+    <img src="https://raw.githubusercontent.com/Main-Sites/Mock_Test/refs/heads/main/img/joinnow.gif" class="Rside-img">
+
+  </div>
+
+</div>
+
+<p id="Textafterlink"></p>
+<a href="https://nootechcomputercentre.github.io/main-site/" id="nextLink" style="display:none;" target="_blank">Click Me!!!</a>
+
+<!-- LINK JS -->
+<script src="G:\Nootech Website details\Exam Portals indexes\Mock_Test\ntc\js\app.js"></script>
+
+</body>
+</html>
