@@ -155,6 +155,52 @@ button:hover {
 .center-logo {
   width:40px;
 }
+#nextLink {
+  display: none; /* keep hidden initially */
+  color: blue;
+  font-weight: bold;
+  padding: 8px 15px;
+  text-decoration: none;
+  
+  /* Gradient background */
+  background: linear-gradient(90deg, yellow, orange, yellow);
+  background-size: 200% 200%;
+  border-radius: 5px;
+
+  /* Animation */
+  animation: glow 2s linear infinite;
+}
+
+/* Animation effect */
+@keyframes glow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+#Textafterlink {
+  color: yellow;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 10px;
+
+  /* Glow effect */
+  text-shadow: 0 0 5px yellow, 0 0 10px orange, 0 0 15px yellow;
+
+  /* Animation */
+  animation: blinkGlow 1.5s infinite alternate;
+}
+
+/* Animation keyframes */
+@keyframes blinkGlow {
+  0% {
+    opacity: 1;
+    text-shadow: 0 0 5px yellow, 0 0 10px orange;
+  }
+  100% {
+    opacity: 0.6;
+    text-shadow: 0 0 15px yellow, 0 0 25px orange;
+  }
+}
 
 </style>
 
@@ -164,7 +210,7 @@ button:hover {
 
 <div class="container">
 
-<img src="https://raw.githubusercontent.com/Main-Sites/Mock_Test/refs/heads/main/img/logo.png" class="logo">
+<img src="logo.png" class="logo">
 <div id="timer">Time: 20:00</div>
 
 <h1>Nootech Computer Centre</h1>
@@ -197,7 +243,7 @@ button:hover {
 </div>
 
 <div id="result"></div>
-
+<a href="https://nootechcomputercentre.github.io/main-site/" id="nextLink" target="_blank">Click Me!!</a>
 </div>
 
 <!-- ===== FOOTER (UNCHANGED) ===== -->
@@ -207,18 +253,25 @@ button:hover {
 
   <div class="socials">
 
-    <img src="https://raw.githubusercontent.com/Main-Sites/Mock_Test/refs/heads/main/img/Admopen.gif" class="Lside-img">
+    <img src="C:\Users\ssena\OneDrive\Desktop\Tally crack\Admopen1.gif" class="Lside-img">
 
     <a href="https://www.facebook.com/profile.php?id=61567543754358" target="_blank"><i class="fab fa-facebook"></i></a>
    <a href="https://www.instagram.com/nootechcomputercentre" target="_blank"> <i class="fab fa-instagram"></i></a>
     <a href="https://www.threads.com/@nootechcomputercentre?xmt=AQF0I3PifDtR-If3dQHBkoPYyaX6wlz8u1ChnD7v0Qm_jQ8" target="_blank"><i class="fab fa-threads"></i></a>
     <a href="https://nootechcomputercentre.github.io/main-site/" target="_blank"><i class="fas fa-globe"></i></a>
 
-    <img src="https://raw.githubusercontent.com/Main-Sites/Mock_Test/refs/heads/main/img/joinnow.gif" class="Rside-img">
+    <img src="C:\Users\ssena\OneDrive\Desktop\Tally crack\joinnow.gif" class="Rside-img">
 
   </div>
 
 </div>
+
+<div id="result"></div>
+<p id="Textafterlink"></p>
+<a href="https://nootechcomputercentre.github.io/main-site/" id="nextLink" style="display:none;" target="_blank">Click Me!!!</a>
+
+
+
 
 <script>
 let q = [];
@@ -326,9 +379,16 @@ fetch("https://script.google.com/macros/s/AKfycbw-1558uu1xXl76sWb46G0HHRmJAIYcl3
 .then(() => {
     document.getElementById("result").innerHTML =
     "<h2>Score: "+score+" / "+q.length+"</h2>";
-});
-}
-</script>
 
+// Show link AFTER result
+document.getElementById("Textafterlink").innerText = "To know more about your Complete Response details , Click on the Button Click Me!! , then click on Whatsapp Chartbox at the bottom right, enter your Name,e-mail,Mobile no & Send it.";
+document.getElementById("nextLink").style.display = "inline";
+
+});}
+</script>
 </body>
 </html>
+
+
+
+
