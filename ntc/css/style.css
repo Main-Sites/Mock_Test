@@ -25,6 +25,39 @@ body {
     top: 15px;
     width: 120px;
 }
+/* LOGO STYLE */
+.logo-container {
+    display: flex;
+    align-items: left;
+}
+
+/* LOGO IMAGE */
+.logo {
+    width: 150px;
+    animation: floatLogo 3s ease-in-out infinite;
+}
+
+/* 2 PULSE EFFECT */
+.logo {
+    width: 150px;
+    animation: pulse 2s infinite;
+}
+
+/*  ANIMATION */
+@keyframes pulse {
+    0% {
+        filter: drop-shadow(0 0 5px cyan);
+    }
+    50% {
+        filter: drop-shadow(0 0 20px cyan);
+        transform: scale(1.05);
+    }
+    100% {
+        filter: drop-shadow(0 0 5px cyan);
+    }
+}
+
+
 
 #timer {
     position: absolute;
