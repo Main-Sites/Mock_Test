@@ -127,9 +127,15 @@ button:hover {
 }
 
 .socials i {
-  font-size:20px;
-  color:#00e6c3;
-  cursor:pointer;
+    font-size: 22px;
+    margin: 0 10px;
+    color: white;
+    transition: 0.3s;
+}
+
+.socials i:hover {
+    color: cyan;
+    transform: scale(1.2);
 }
 
 .center-logo {
