@@ -3,7 +3,7 @@ let i = 0;
 let score = 0;
 let answers = {};
 
-let timeLeft = 2400;
+let timeLeft = 1500;
 let timerInterval;
 
 function startTimer(){
