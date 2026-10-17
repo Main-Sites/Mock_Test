@@ -3,7 +3,7 @@ let i = 0;
 let score = 0;
 let answers = {};
 
-let timeLeft = 1800; // if you want to change time into 30 minutes ,then type 1800 as seconds , Why 1800?- 25 minutes × 60 seconds = 1500 seconds,like wise  30 minutes × 60 seconds = 1800 seconds
+let timeLeft = 1800; // if you want to change time into 30 minutes ,then change all TimeLeft value as  1800 seconds , Why 1800?- 25 minutes × 60 seconds = 1500 seconds,like wise  30 minutes × 60 seconds = 1800 seconds
 let timerInterval;
 
 // Exam integrity controls
