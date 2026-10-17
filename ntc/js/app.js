@@ -32,7 +32,7 @@ function registerExamViolation(reason) {
     if (violationCount < MAX_VIOLATIONS) {
         const remaining = MAX_VIOLATIONS - violationCount;
         alert(
-            "Warning " + violationCount + " of 2\\n\\n" +
+            "Warning " + violationCount + " of 2\n\n" +
             "You left the exam portal or switched to another tab/screen. " +
             "Please remain on the exam portal.\\n\\n" +
             "If this happens " + remaining + " more time(s), your exam will be submitted automatically."
@@ -141,22 +141,129 @@ async function startTest() {
 function loadQ() {
     if (!q[i]) return;
 
-    document.getElementById("questionBox").innerText = (i + 1) + ". " + q[i].question;
+    document.getElementById("questionBox").innerText =
+        (i + 1) + ". " + q[i].question;
 
-    document.getElementById("A").innerText = "A. " + q[i].A;
-    document.getElementById("B").innerText = "B. " + q[i].B;
-    document.getElementById("C").innerText = "C. " + q[i].C;
-    document.getElementById("D").innerText = "D. " + q[i].D;
+    ["A", "B", "C", "D"].forEach(function (key) {
+        const option = document.getElementById(key);
+        option.innerText = key + ". " + (q[i][key] ?? "");
+        option.classList.toggle("selected", answers[i] === key);
+        option.style.display = "";
+        option.disabled = !isExamActive();
+    });
+
+    updateQuestionNavigation();
+}
+
+function updateQuestionNavigation() {
+    const total = q.length;
+    const current = i + 1;
+    const answered = Object.keys(answers).filter(function (key) {
+        return answers[key] !== undefined && answers[key] !== null && answers[key] !== "";
+    }).length;
+
+    const progress = document.getElementById("questionProgress");
+    const progressBar = document.getElementById("progressBar");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const submitBtn = document.getElementById("submitBtn");
+    const answerStatus = document.getElementById("answerStatus");
+    const answeredCount = document.getElementById("answeredCount");
+
+    if (progress) progress.textContent = "Question " + current + " of " + total;
+    if (progressBar) progressBar.style.width = (total ? (current / total) * 100 : 0) + "%";
+    if (prevBtn) prevBtn.disabled = i <= 0 || !isExamActive();
+    if (nextBtn) {
+        nextBtn.style.display = i >= total - 1 ? "none" : "inline-flex";
+        nextBtn.disabled = !isExamActive();
+    }
+    if (submitBtn) {
+        submitBtn.style.display = i >= total - 1 ? "inline-flex" : "none";
+        submitBtn.disabled = !isExamActive();
+    }
+    if (answerStatus) {
+        answerStatus.innerHTML = answers[i]
+            ? '<i class="fa-solid fa-circle-check"></i> Answer selected: ' + answers[i]
+            : '<i class="fa-regular fa-circle"></i> No answer selected';
+    }
+    if (answeredCount) answeredCount.textContent = answered + " of " + total + " answered";
 }
 
 function check(ans) {
     if (!isExamActive() || !q[i]) return;
 
-    answers[i] = ans;
+    // Save the answer for this question. Students can revisit it and change it later.
+    answers[i] = String(ans).trim().toUpperCase();
 
-    if (ans === q[i].ans) {
-        score++;
+    ["A", "B", "C", "D"].forEach(function (key) {
+        document.getElementById(key).classList.toggle("selected", key === answers[i]);
+    });
+
+    updateQuestionNavigation();
+}
+
+function previousQuestion() {
+    if (!isExamActive() || i <= 0) return;
+    i--;
+    loadQ();
+}
+
+function nextQuestion() {
+    if (!isExamActive() || i >= q.length - 1) return;
+    i++;
+    loadQ();
+}
+
+// Convert common answer formats into the option letter A/B/C/D.
+// Supports values such as "B", "(B) CPU", "B. CPU", "Correct Answer: (B) CPU",
+// or the option text itself (for example, "CPU").
+function normalizeAnswer(value, question) {
+    if (value === null || value === undefined) return "";
+
+    const raw = String(value).trim();
+    if (!raw) return "";
+
+    const letterMatch = raw.match(/(?:^|[^A-Z])([ABCD])\s*(?:[.)\]:-]|\s|$)/i);
+    if (letterMatch) return letterMatch[1].toUpperCase();
+
+    const clean = text => String(text ?? "")
+        .replace(/^\s*[ABCD]\s*[.)\]:-]\s*/i, "")
+        .replace(/^\s*correct\s*answer\s*:\s*/i, "")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, " ");
+
+    const target = clean(raw);
+    if (question) {
+        const optionKeys = ["A", "B", "C", "D"];
+        for (const key of optionKeys) {
+            if (target && target === clean(question[key])) return key;
+        }
     }
+
+    return target;
+}
+
+function calculateScore() {
+    let totalCorrect = 0;
+
+    q.forEach((question, index) => {
+        const selected = normalizeAnswer(answers[index], question);
+        const correct = normalizeAnswer(question.ans, question);
+        if (selected && correct && selected === correct) {
+            totalCorrect++;
+        }
+    });
+
+    score = totalCorrect;
+    return totalCorrect;
+}
+
+function check(ans) {
+    if (!isExamActive() || !q[i]) return;
+
+    // Store the chosen option; the final score is calculated from all recorded answers.
+    answers[i] = String(ans).trim().toUpperCase();
 
     i++;
 
@@ -186,11 +293,15 @@ function submitData(isAutomatic = false) {
     let whatsapp = document.getElementById("whatsapp").value;
     let date = document.getElementById("date").value;
 
+    // Recalculate at submission so manual, timer and violation submissions use the same scoring logic.
+    calculateScore();
+
     let data = {
         name: name,
         whatsapp: whatsapp,
         date: date,
         score: score,
+        totalQuestions: q.length,
         answers: answers,
         submissionReason: isAutomatic ? "automatic" : "manual",
         examPortalViolations: violationCount
@@ -213,10 +324,14 @@ function submitData(isAutomatic = false) {
 
         document.getElementById("nextLink").style.display = "inline";
 
-        // Stop further answering after submission.
+        // Stop further answering/navigation after submission.
         ["A", "B", "C", "D"].forEach(function (id) {
             const option = document.getElementById(id);
             if (option) option.style.display = "none";
+        });
+        ["prevBtn", "nextBtn", "submitBtn"].forEach(function (id) {
+            const button = document.getElementById(id);
+            if (button) button.style.display = "none";
         });
 
         document.getElementById("questionBox").innerText =

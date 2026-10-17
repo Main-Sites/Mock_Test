@@ -1,83 +1,96 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-
-<title>Nootech Computer Centre - Online Mock Test</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b1224">
+<title>Nootech Computer Centre | Online Mock Test Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-<!-- LINK CSS -->
 <link rel="stylesheet" href="ntc/css/style.css">
-
 </head>
-
 <body>
-
-<div class="container">
-
-<img src="ntc/img/logo.png" class="logo">
-<div id="timer">Time: 25:00</div>
-
-<h1>Nootech Computer Centre</h1>
-<h2>Online Mock Test Portal</h2>
-
-<!-- FORM -->
-<div id="formSection">
-    <input type="text" id="name" placeholder="Candidate Name"><br>
-    <input type="text" id="whatsapp" placeholder="WhatsApp Number"><br>
-    <input type="date" id="date"><br><br>
-
-    <button onclick="startTest()">Start Test</button>
-</div>
-
-<!-- QUIZ -->
-<div id="quizSection" style="display:none;">
-
-    <div id="questionBox"></div>
-
-    <div>
-        <div class="option-btn" onclick="check('A')" id="A"></div>
-        <div class="option-btn" onclick="check('B')" id="B"></div>
-        <div class="option-btn" onclick="check('C')" id="C"></div>
-        <div class="option-btn" onclick="check('D')" id="D"></div>
+<div class="page-shell">
+  <header class="topbar">
+    <div class="brand">
+      <img src="ntc/img/logo.png" class="logo" alt="Nootech Computer Centre logo">
+      <div class="brand-copy">
+        <span class="eyebrow">LEARN • PRACTICE • SUCCEED</span>
+        <h1>Nootech Computer Centre</h1>
+        <p>Online Mock Test Portal</p>
+      </div>
     </div>
+    <div class="timer-card">
+      <span class="timer-label"><i class="fa-regular fa-clock"></i> TIME REMAINING</span>
+      <strong id="timer">Time: 25:00</strong>
+    </div>
+  </header>
 
-    <br><br>
-    <button id="submitBtn" style="display:none;" onclick="submitData()">Submit Test</button>
+  <main>
+    <section class="intro-strip">
+      <div class="intro-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+      <div>
+        <h2>Prepare with confidence</h2>
+        <p>Read each question carefully, select your answer, and use Previous / Next to review your responses before submitting.</p>
+      </div>
+    </section>
+
+    <section id="formSection" class="panel form-panel">
+      <div class="section-heading">
+        <span class="section-icon"><i class="fa-solid fa-user-check"></i></span>
+        <div><h2>Candidate details</h2><p>Enter your details to begin the test.</p></div>
+      </div>
+      <div class="form-grid">
+        <label class="field"><span>Candidate name</span><input type="text" id="name" placeholder="Enter your full name" autocomplete="name" required></label>
+        <label class="field"><span>WhatsApp number</span><input type="tel" id="whatsapp" placeholder="Enter mobile number" autocomplete="tel" required></label>
+        <label class="field"><span>Test date</span><input type="date" id="date"></label>
+      </div>
+      <button class="btn btn-primary btn-start" onclick="startTest()"><i class="fa-solid fa-play"></i> Start Test</button>
+      <p class="form-note"><i class="fa-solid fa-shield-halved"></i> Stay on the exam portal while your test is in progress.</p>
+    </section>
+
+    <section id="quizSection" class="panel quiz-panel" style="display:none;">
+      <div class="quiz-topline">
+        <div><span class="eyebrow">YOUR EXAM</span><h2>Question &amp; Answer</h2></div>
+        <div id="questionProgress" class="progress-pill">Question 1</div>
+      </div>
+      <div class="progress-track"><div id="progressBar" class="progress-fill" style="width:0%"></div></div>
+      <div id="questionBox" class="question-box"></div>
+      <div id="optionsGrid" class="options-grid">
+        <button type="button" class="option-btn" onclick="check('A')" id="A"></button>
+        <button type="button" class="option-btn" onclick="check('B')" id="B"></button>
+        <button type="button" class="option-btn" onclick="check('C')" id="C"></button>
+        <button type="button" class="option-btn" onclick="check('D')" id="D"></button>
+      </div>
+      <div class="answer-status"><span id="answerStatus"><i class="fa-regular fa-circle"></i> No answer selected</span><span id="answeredCount">0 answered</span></div>
+      <div class="quiz-navigation">
+        <button type="button" id="prevBtn" class="btn btn-secondary" onclick="previousQuestion()" disabled><i class="fa-solid fa-arrow-left"></i> Previous</button>
+        <div class="nav-center-note">You can change your answer before submitting.</div>
+        <button type="button" id="nextBtn" class="btn btn-primary" onclick="nextQuestion()">Next <i class="fa-solid fa-arrow-right"></i></button>
+        <button type="button" id="submitBtn" class="btn btn-submit" style="display:none;" onclick="submitData(false)"><i class="fa-solid fa-paper-plane"></i> Submit Test</button>
+      </div>
+    </section>
+
+    <section id="result" class="result-panel" aria-live="polite"></section>
+    <p id="Textafterlink" class="result-help"></p>
+    <a href="https://nootechcomputercentre.github.io/main-site/" id="nextLink" class="btn btn-primary result-link" target="_blank" rel="noopener" style="display:none;">Click Me!! <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-brand">
+      <strong>Nootech Computer Centre</strong>
+      <span>Designed &amp; developed by Sarbajit Senapati</span>
+    </div>
+    <p>© 2026 Nootech Computer Centre. All Rights Reserved.</p>
+    <div class="socials">
+      <a href="https://www.facebook.com/profile.php?id=61567543754358" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="https://www.instagram.com/nootechcomputercentre" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.threads.com/@nootechcomputercentre" target="_blank" rel="noopener" aria-label="Threads"><i class="fab fa-threads"></i></a>
+      <a href="https://nootechcomputercentre.github.io/main-site/" target="_blank" rel="noopener" aria-label="Website"><i class="fas fa-globe"></i></a>
+    </div>
+    <div class="footer-gifs"><img src="ntc/img/Admopen.gif" alt="" class="footer-gif"><img src="ntc/img/joinnow.gif" alt="" class="footer-gif"></div>
+  </footer>
 </div>
-
-<div id="result"></div>
-<a href="https://nootechcomputercentre.github.io/main-site/" id="nextLink" target="_blank">Click Me!!</a>
-</div>
-    <h3><font color="lime">Site is Designed and Developed By Mr. SARBAJIT SENAPATI</font></h3>
-
-<!-- FOOTER -->
-<div class="footer">
-
-  <p>© 2026 Nootech Computer Centre. All Rights Reserved.</p>
-
-  <div class="socials">
-
-    <img src="ntc/img/Admopen.gif" class="Lside-img">
- 
-    <a href="https://www.facebook.com/profile.php?id=61567543754358" target="_blank"><i class="fab fa-facebook"></i></a>
-    <a href="https://www.instagram.com/nootechcomputercentre" target="_blank"><i class="fab fa-instagram"></i></a>
-    <a href="https://www.threads.com/@nootechcomputercentre" target="_blank"><i class="fab fa-threads"></i></a>
-    <a href="https://nootechcomputercentre.github.io/main-site/" target="_blank"><i class="fas fa-globe"></i></a>
-
-    <img src="ntc/img/joinnow.gif" class="Rside-img">
-
-  </div>
-
-</div>
-<p id="Textafterlink"></p>
-<a href="https://nootechcomputercentre.github.io/main-site/" id="nextLink" style="display:none;" target="_blank">Click Me!!!</a>
-
-<!-- LINK JS -->
 <script src="ntc/js/app.js"></script>
-
 </body>
 </html>
