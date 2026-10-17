@@ -11,7 +11,7 @@ let examStarted = false;
 let examSubmitted = false;
 let violationCount = 0;
 let lastViolationAt = 0;
-const MAX_VIOLATIONS = 3;
+const MAX_VIOLATIONS = 4;
 const VIOLATION_DEBOUNCE_MS = 1800;
 
 function isExamActive() {
@@ -32,7 +32,7 @@ function registerExamViolation(reason) {
     if (violationCount < MAX_VIOLATIONS) {
         const remaining = MAX_VIOLATIONS - violationCount;
         alert(
-            "Warning " + violationCount + " of 2\n\n" +
+            "Warning " + violationCount + " of 3\n\n" +
             "You left the exam portal or switched to another tab/screen. " +
             "Please remain on the exam portal.\\n\\n" +
             "If this happens " + remaining + " more time(s), your exam will be submitted automatically."
@@ -42,7 +42,7 @@ function registerExamViolation(reason) {
 
     alert(
         "Final warning exceeded.\\n\\n" +
-        "You have left the exam portal 3 times. Your exam will now be submitted automatically."
+        "You have left the exam portal 4 times. Your exam will now be submitted automatically."
     );
     submitData(true);
 }
@@ -179,7 +179,7 @@ async function beginAuthorizedTest() {
     i = 0;
     score = 0;
     answers = {};
-    timeLeft = 1500;
+    timeLeft = 1800;
     violationCount = 0;
     lastViolationAt = 0;
     examSubmitted = false;
