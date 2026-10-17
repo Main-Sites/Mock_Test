@@ -11,7 +11,7 @@ let examStarted = false;
 let examSubmitted = false;
 let violationCount = 0;
 let lastViolationAt = 0;
-const MAX_VIOLATIONS = 4;
+const MAX_VIOLATIONS = 3;
 const VIOLATION_DEBOUNCE_MS = 1800;
 
 function isExamActive() {
@@ -32,7 +32,7 @@ function registerExamViolation(reason) {
     if (violationCount < MAX_VIOLATIONS) {
         const remaining = MAX_VIOLATIONS - violationCount;
         alert(
-            "Warning " + violationCount + " of 3\n\n" +
+            "Warning " + violationCount + " of 2\n\n" +
             "You left the exam portal or switched to another tab/screen. " +
             "Please remain on the exam portal.\\n\\n" +
             "If this happens " + remaining + " more time(s), your exam will be submitted automatically."
@@ -42,7 +42,7 @@ function registerExamViolation(reason) {
 
     alert(
         "Final warning exceeded.\\n\\n" +
-        "You have left the exam portal 4 times. Your exam will now be submitted automatically."
+        "You have left the exam portal 3 times. Your exam will now be submitted automatically."
     );
     submitData(true);
 }
@@ -105,12 +105,24 @@ async function loadQuestionsFromSheet() {
 // Note: a code stored in browser JavaScript is not secure against technical users.
 const EXAM_ACCESS_CODE = "NTC2026";
 
+function isValidIndianMobile(mobile) {
+    // Accept exactly 10 digits; Indian mobile numbers begin with 6, 7, 8, or 9.
+    return /^[6-9]\d{9}$/.test(mobile);
+}
+
 function startTest() {
     const name = document.getElementById("name").value.trim();
     const whatsapp = document.getElementById("whatsapp").value.trim();
 
-    if (name === "" || whatsapp === "") {
-        alert("Please fill in your name and WhatsApp number first.");
+    if (name === "") {
+        alert("Please enter your full name.");
+        document.getElementById("name").focus();
+        return;
+    }
+
+    if (!isValidIndianMobile(whatsapp)) {
+        alert("Please enter a valid 10-digit Indian mobile number beginning with 6, 7, 8, or 9.");
+        document.getElementById("whatsapp").focus();
         return;
     }
 
