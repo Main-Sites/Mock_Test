@@ -101,15 +101,69 @@ async function loadQuestionsFromSheet() {
     q = await res.json();
 }
 
-async function startTest() {
-    let name = document.getElementById("name").value.trim();
-    let whatsapp = document.getElementById("whatsapp").value.trim();
+// Change this code before publishing the portal.
+// Note: a code stored in browser JavaScript is not secure against technical users.
+const EXAM_ACCESS_CODE = "NTC2026";
+
+function startTest() {
+    const name = document.getElementById("name").value.trim();
+    const whatsapp = document.getElementById("whatsapp").value.trim();
 
     if (name === "" || whatsapp === "") {
-        alert("Please fill all details");
+        alert("Please fill in your name and WhatsApp number first.");
         return;
     }
 
+    const modal = document.getElementById("accessCodeModal");
+    const codeInput = document.getElementById("accessCodeInput");
+    const error = document.getElementById("accessCodeError");
+
+    error.style.display = "none";
+    codeInput.value = "";
+    modal.style.display = "flex";
+    document.body.classList.add("modal-open");
+    window.setTimeout(function () { codeInput.focus(); }, 50);
+}
+
+function closeAccessCodeModal() {
+    const modal = document.getElementById("accessCodeModal");
+    if (modal) modal.style.display = "none";
+    document.body.classList.remove("modal-open");
+}
+
+async function verifyAccessCode() {
+    const codeInput = document.getElementById("accessCodeInput");
+    const error = document.getElementById("accessCodeError");
+    const verifyBtn = document.getElementById("verifyAccessBtn");
+    const enteredCode = codeInput.value.trim();
+
+    if (!enteredCode) {
+        error.textContent = "Please enter the exam access code.";
+        error.style.display = "block";
+        codeInput.focus();
+        return;
+    }
+
+    if (enteredCode.toUpperCase() !== EXAM_ACCESS_CODE.toUpperCase()) {
+        error.textContent = "Incorrect code. Please check with the exam administrator.";
+        error.style.display = "block";
+        codeInput.select();
+        return;
+    }
+
+    error.style.display = "none";
+    verifyBtn.disabled = true;
+    verifyBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verifying...';
+
+    try {
+        await beginAuthorizedTest();
+    } finally {
+        verifyBtn.disabled = false;
+        verifyBtn.innerHTML = '<i class="fa-solid fa-unlock-keyhole"></i> Verify &amp; Start Test';
+    }
+}
+
+async function beginAuthorizedTest() {
     try {
         await loadQuestionsFromSheet();
         if (!Array.isArray(q) || q.length === 0) {
@@ -131,12 +185,27 @@ async function startTest() {
     examSubmitted = false;
     examStarted = true;
 
+    closeAccessCodeModal();
     document.getElementById("formSection").style.display = "none";
     document.getElementById("quizSection").style.display = "block";
 
     startTimer();
     loadQ();
 }
+
+// Allow Enter to verify the code and close the popup by clicking the backdrop.
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" &&
+        document.getElementById("accessCodeModal").style.display === "flex") {
+        event.preventDefault();
+        verifyAccessCode();
+    }
+});
+
+document.addEventListener("click", function (event) {
+    const modal = document.getElementById("accessCodeModal");
+    if (modal && event.target === modal) closeAccessCodeModal();
+});
 
 function loadQ() {
     if (!q[i]) return;

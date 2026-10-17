@@ -22,7 +22,7 @@
     </div>
     <div class="timer-card">
       <span class="timer-label"><i class="fa-regular fa-clock"></i> TIME REMAINING</span>
-      <strong id="timer">Time: 25:00</strong>
+      <strong id="timer">Time: 20:00</strong>
     </div>
   </header>
 
@@ -74,6 +74,22 @@
     <section id="result" class="result-panel" aria-live="polite"></section>
     <p id="Textafterlink" class="result-help"></p>
     <a href="https://nootechcomputercentre.github.io/main-site/" id="nextLink" class="btn btn-primary result-link" target="_blank" rel="noopener" style="display:none;">Click Me!! <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+
+    <div id="accessCodeModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="accessModalTitle" style="display:none;">
+      <div class="access-modal">
+        <button type="button" class="modal-close" onclick="closeAccessCodeModal()" aria-label="Close access code dialog"><i class="fa-solid fa-xmark"></i></button>
+        <div class="access-modal-icon"><i class="fa-solid fa-lock"></i></div>
+        <span class="eyebrow">AUTHORIZED CANDIDATES ONLY</span>
+        <h2 id="accessModalTitle">Enter Exam Access Code</h2>
+        <p>Enter the code provided by Nootech Computer Centre to unlock the test.</p>
+        <label class="field access-code-field" for="accessCodeInput"><span>Exam access code</span>
+          <input type="password" id="accessCodeInput" placeholder="Enter your access code" autocomplete="off" spellcheck="false">
+        </label>
+        <p id="accessCodeError" class="access-error" role="alert" style="display:none;">Incorrect code. Please check with the exam administrator.</p>
+        <button type="button" id="verifyAccessBtn" class="btn btn-primary access-submit" onclick="verifyAccessCode()"><i class="fa-solid fa-unlock-keyhole"></i> Verify &amp; Start Test</button>
+        <p class="access-footnote"><i class="fa-solid fa-shield-halved"></i> Your test will begin after the code is verified.</p>
+      </div>
+    </div>
   </main>
 
   <footer class="footer">

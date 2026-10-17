@@ -68,3 +68,23 @@ main{padding-bottom:28px}
 .footer-gif{width:min(34%,280px);max-height:70px;object-fit:contain}
 @media(max-width:720px){.page-shell{width:min(100% - 22px,1160px);padding-top:14px}.topbar{align-items:flex-start;flex-direction:column;padding-bottom:18px}.brand{gap:12px}.logo{width:62px;height:62px}.timer-card{width:100%;display:flex;align-items:center;justify-content:space-between;padding:10px 14px}.timer-label{font-size:.65rem}#timer{margin:0;font-size:1.2rem}.intro-strip{padding:16px;align-items:flex-start}.intro-icon{width:40px;height:40px}.form-grid,.options-grid{grid-template-columns:1fr}.panel{border-radius:18px}.quiz-navigation{flex-wrap:wrap}.nav-center-note{order:3;flex-basis:100%;text-align:center}.quiz-navigation .btn{flex:1}.answer-status{font-size:.76rem}.footer-gifs{gap:8px}.footer-gif{width:45%}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+
+/* Exam access-code modal */
+body.modal-open{overflow:hidden}
+.modal-overlay{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(3,8,20,.78);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.access-modal{position:relative;width:min(100%,470px);padding:34px 30px 28px;text-align:center;border:1px solid rgba(86,224,208,.3);border-radius:24px;background:linear-gradient(145deg,#172744,#0e192e);box-shadow:0 28px 100px rgba(0,0,0,.55);animation:modal-pop .22s ease-out}
+@keyframes modal-pop{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+.modal-close{position:absolute;top:13px;right:13px;display:grid;place-items:center;width:36px;height:36px;border:1px solid var(--line);border-radius:11px;color:var(--muted);background:rgba(255,255,255,.04);font-size:1rem}
+.modal-close:hover{color:#fff;border-color:var(--cyan)}
+.access-modal-icon{display:grid;place-items:center;width:64px;height:64px;margin:0 auto 18px;border:1px solid rgba(86,224,208,.24);border-radius:20px;color:var(--cyan);background:rgba(86,224,208,.1);font-size:1.5rem}
+.access-modal>.eyebrow{display:block;font-size:.66rem}
+.access-modal h2{margin:9px 0 8px;font-size:1.5rem;letter-spacing:-.03em}
+.access-modal>p{margin:0 auto 22px;max-width:340px;color:var(--muted);font-size:.9rem}
+.access-code-field{text-align:left;margin-top:20px}
+.access-code-field input{text-align:center;letter-spacing:.12em;font-weight:800;font-size:1.1rem}
+.access-submit{width:100%;margin-top:18px;padding:14px}
+.access-modal .access-error{margin:10px 0 0;color:#ff91a2;font-size:.82rem}
+.access-modal .access-footnote{margin:18px 0 0;font-size:.76rem}
+.access-footnote i{color:var(--cyan);margin-right:5px}
+@media(max-width:480px){.access-modal{padding:30px 20px 24px;border-radius:20px}.access-modal h2{font-size:1.3rem}}
