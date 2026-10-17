@@ -3,7 +3,7 @@ let i = 0;
 let score = 0;
 let answers = {};
 
-let timeLeft = 1500;
+let timeLeft = 1800; // if you want to change time into 30 minutes ,then type 1800 as seconds , Why 1800?- 25 minutes × 60 seconds = 1500 seconds,like wise  30 minutes × 60 seconds = 1800 seconds
 let timerInterval;
 
 // Exam integrity controls
@@ -12,7 +12,7 @@ let examSubmitted = false;
 let violationCount = 0;
 let lastViolationAt = 0;
 const MAX_VIOLATIONS = 3;
-const VIOLATION_DEBOUNCE_MS = 1500;
+const VIOLATION_DEBOUNCE_MS = 1800;
 
 function isExamActive() {
     return examStarted && !examSubmitted;
