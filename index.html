@@ -1,112 +1,174 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0b1224">
-<title>Nootech Computer Centre | Online Mock Test Portal</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="ntc/css/style.css">
+<meta name="theme-color" content="#10172b">
+<title>Mock Test | Nootech Exam Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-<div class="page-shell">
-  <header class="topbar">
-    <div class="brand">
-      <img src="ntc/img/logo.png" class="logo" alt="Nootech Computer Centre logo">
-      <div class="brand-copy">
-        <span class="eyebrow">LEARN • PRACTICE • SUCCEED</span>
-        <h1>Nootech Computer Centre</h1>
-        <p>Online Mock Test Portal</p>
-      </div>
+<div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+<nav class="nav">
+<a class="brand" href="#" aria-label="Nootech home"><img src="assets/image/ntcicon.PNG" class="brand-logo"><span>NOOTECH <small>EXAM ARENA</small></span></a>
+
+  <div class="nav-right"><span class="live-dot"></span><span>MOCK TEST PORTAL</span><span class="nav-divider"></span><span class="nav-date" id="todayLabel">MOCK TEST</span></div>
+</nav>
+
+
+<div class="marq">
+    <div class="marq-track">
+        <div class="marq-content">
+            <span>✦ FOR ANY QUERY, PLEASE VISIT OUR CENTRE</span>
+            <span class="marq-separator">|</span>
+            <span>☎ CALL US: +91-9853895452</span>
+            <span class="marq-separator">|</span>
+            <span>✦ FOR ANY QUERY, PLEASE VISIT OUR CENTRE</span>
+            <span class="marq-separator">|</span>
+            <span>☎ CALL US: +91-9853895452</span>
+            <span class="marq-separator">|</span>
+        </div>
+
+        <div class="marq-content" aria-hidden="true">
+            <span>✦ FOR ANY QUERY, PLEASE VISIT OUR CENTRE</span>
+            <span class="marq-separator">|</span>
+            <span>☎ CALL US: +91-9853895452</span>
+            <span class="marq-separator">|</span>
+            <span>✦ FOR ANY QUERY, PLEASE VISIT OUR CENTRE</span>
+            <span class="marq-separator">|</span>
+            <span>☎ CALL US: +91-9853895452</span>
+            <span class="marq-separator">|</span>
+        </div>
     </div>
-    <div class="timer-card">
-      <span class="timer-label"><i class="fa-regular fa-clock"></i> TIME REMAINING</span>
-      <strong id="timer">Time: 30:00</strong>
-    </div>
-  </header>
-
-  <main>
-    <section class="intro-strip">
-      <div class="intro-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-      <div>
-        <h2>Prepare with confidence</h2>
-        <p>Read each question carefully, select your answer, and use Previous / Next to review your responses before submitting.</p>
-      </div>
-    </section>
-
-    <section id="formSection" class="panel form-panel">
-      <div class="section-heading">
-        <span class="section-icon"><i class="fa-solid fa-user-check"></i></span>
-        <div><h2>Candidate details</h2><p>Enter your details to begin the test.</p></div>
-      </div>
-      <div class="form-grid">
-        <label class="field"><span>Candidate name</span><input type="text" id="name" placeholder="Enter your full name" autocomplete="name" required></label>
-        <label class="field"><span>WhatsApp number</span><input type="tel" id="whatsapp" placeholder="10-digit Indian mobile number" autocomplete="tel" inputmode="numeric" pattern="[6-9][0-9]{9}" minlength="10" maxlength="10" title="Enter a valid 10-digit Indian mobile number beginning with 6, 7, 8, or 9" required></label>
-        <label class="field"><span>Test date</span><input type="date" id="date"></label>
-      </div>
-      <button class="btn btn-primary btn-start" onclick="startTest()"><i class="fa-solid fa-play"></i> Start Test</button>
-      <p class="form-note"><i class="fa-solid fa-shield-halved"></i> Stay on the exam portal while your test is in progress.</p>
-    </section>
-
-    <section id="quizSection" class="panel quiz-panel" style="display:none;">
-      <div class="quiz-topline">
-        <div><span class="eyebrow">YOUR EXAM</span><h2>Question &amp; Answer</h2></div>
-        <div id="questionProgress" class="progress-pill">Question 1</div>
-      </div>
-      <div class="progress-track"><div id="progressBar" class="progress-fill" style="width:0%"></div></div>
-      <div id="questionBox" class="question-box"></div>
-      <div id="optionsGrid" class="options-grid">
-        <button type="button" class="option-btn" onclick="check('A')" id="A"></button>
-        <button type="button" class="option-btn" onclick="check('B')" id="B"></button>
-        <button type="button" class="option-btn" onclick="check('C')" id="C"></button>
-        <button type="button" class="option-btn" onclick="check('D')" id="D"></button>
-      </div>
-      <div class="answer-status"><span id="answerStatus"><i class="fa-regular fa-circle"></i> No answer selected</span><span id="answeredCount">0 answered</span></div>
-      <div class="quiz-navigation">
-        <button type="button" id="prevBtn" class="btn btn-secondary" onclick="previousQuestion()" disabled><i class="fa-solid fa-arrow-left"></i> Previous</button>
-        <div class="nav-center-note">You can change your answer before submitting.</div>
-        <button type="button" id="nextBtn" class="btn btn-primary" onclick="nextQuestion()">Next <i class="fa-solid fa-arrow-right"></i></button>
-        <button type="button" id="submitBtn" class="btn btn-submit" style="display:none;" onclick="submitData(false)"><i class="fa-solid fa-paper-plane"></i> Submit Test</button>
-      </div>
-    </section>
-
-    <section id="result" class="result-panel" aria-live="polite"></section>
-    <p id="Textafterlink" class="result-help"></p>
-    <a href="https://nootechcomputercentre.github.io/main-site/" id="nextLink" class="btn btn-primary result-link" target="_blank" rel="noopener" style="display:none;">Click Me!! <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-
-    <div id="accessCodeModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="accessModalTitle" style="display:none;">
-      <div class="access-modal">
-        <button type="button" class="modal-close" onclick="closeAccessCodeModal()" aria-label="Close access code dialog"><i class="fa-solid fa-xmark"></i></button>
-        <div class="access-modal-icon"><i class="fa-solid fa-lock"></i></div>
-        <span class="eyebrow">AUTHORIZED CANDIDATES ONLY</span>
-        <h2 id="accessModalTitle">Enter Exam Access Code</h2>
-        <p>Enter the code provided by Nootech Computer Centre to unlock the test.</p>
-        <label class="field access-code-field" for="accessCodeInput"><span>Exam access code</span>
-          <input type="password" id="accessCodeInput" placeholder="Enter your access code" autocomplete="off" spellcheck="false">
-        </label>
-        <p id="accessCodeError" class="access-error" role="alert" style="display:none;">Incorrect code. Please check with the exam administrator.</p>
-        <button type="button" id="verifyAccessBtn" class="btn btn-primary access-submit" onclick="verifyAccessCode()"><i class="fa-solid fa-unlock-keyhole"></i> Verify &amp; Start Test</button>
-        <p class="access-footnote"><i class="fa-solid fa-shield-halved"></i> Your test will begin after the code is verified.</p>
-      </div>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-brand">
-      <strong>Nootech Computer Centre</strong>
-      <span>Designed &amp; developed by Sarbajit Senapati</span>
-    </div>
-    <p>© 2026 Nootech Computer Centre. All Rights Reserved.</p>
-    <div class="socials">
-      <a href="https://www.facebook.com/profile.php?id=61567543754358" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-      <a href="https://www.instagram.com/nootechcomputercentre" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-      <a href="https://www.threads.com/@nootechcomputercentre" target="_blank" rel="noopener" aria-label="Threads"><i class="fab fa-threads"></i></a>
-      <a href="https://nootechcomputercentre.github.io/main-site/" target="_blank" rel="noopener" aria-label="Website"><i class="fas fa-globe"></i></a>
-    </div>
-    <div class="footer-gifs"><img src="ntc/img/Admopen.gif" alt="" class="footer-gif"><img src="ntc/img/joinnow.gif" alt="" class="footer-gif"></div>
-  </footer>
 </div>
-<script src="ntc/js/app.js"></script>
-</body>
-</html>
+	
+	
+	
+<main class="shell">
+  <section id="landing" class="landing">
+    <div class="hero-copy">
+ 
+	
+	
+      <div class="admission-announcement" role="status" aria-label="New Admission is Going on">
+        <span class="admission-sparkle" aria-hidden="true">✦</span>
+        <span>NEW ADMISSION IS GOING ON</span>
+        <span class="admission-sparkle" aria-hidden="true">✦</span>
+      </div>
+      <div class="eyebrow"><span class="eyebrow-icon">✦</span> YOUR NEXT LEVEL STARTS HERE</div>
+      <h1>Prepare smarter.<br><span>Perform better.</span></h1>
+      <p class="hero-lede">A focused, exam-style practice environment for mock examinations. Test your knowledge, manage your time, and track your performance.</p>
+      <div class="hero-pills"><span>✓ Timed mock tests</span><span>✓ Instant score</span><span>✓ Exam integrity alerts</span></div>
+      <div class="stats-row">
+        <div class="stat"><strong>15<span> min</span></strong><small>Test duration</small></div>
+        <div class="stat"><strong id="landingQuestionCount">20</strong><small>Available questions</small></div>
+        <div class="stat"><strong>4</strong><small>Violation limit</small></div>
+      </div>
+      <div class="hero-note"><span class="note-icon">ⓘ</span><span><b>Before you begin</b><br>Keep your details ready, stay on the exam screen, and use your authorized access code.</span></div>
+    </div>
+    <div class="entry-wrap">
+      <div class="entry-card">
+        <div class="card-topline"><span class="mini-tag">CANDIDATE CHECK-IN</span><span class="shield">◈ SECURE SESSION</span></div>
+        <h2>Set up your exam</h2><p class="card-subtitle">Enter the details exactly as registered.</p>
+        <form id="candidateForm" novalidate>
+          <label for="candidateName">Full name <span>*</span></label>
+          <div class="field"><span class="field-icon">♙</span><input id="candidateName" name="candidateName" type="text" autocomplete="name" placeholder="Enter your full name" maxlength="80" required></div>
+          <label for="mobile">10-digit mobile number <span>*</span></label>
+          <div class="field"><span class="field-icon">⌕</span><span class="country-code">+91</span><input id="mobile" name="mobile" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="9876543210" maxlength="10" pattern="[6-9][0-9]{9}" required></div>
+          <small class="field-hint">Enter a valid Indian mobile number. OTP verification requires a connected SMS service.</small>
+          <label for="examDate">Date of examination <span>*</span></label>
+          
+          <div class="field"><span class="field-icon">▦</span><input id="examDate" name="examDate" type="date" required></div>
+          <label for="examTopic">Exam topic / subject <span>*</span></label>
+         
+<div class="field">
+    <span class="field-icon">▤</span>
+    <select id="examTopic" name="examTopic" required>
+        <option value="" disabled selected>Select Exam Topic</option>
+        <option value="Fundamentals">Fundamentals</option>
+        <option value="Operating System">Operating System</option>
+        <option value="Writer">Ms-Word</option>
+        <option value="Calc">Ms-Excel</option>
+        <option value="Presenter">Ms-PowerPoint</option>
+		<option value="Access">Ms-Access</option>
+        <option value="Internet">Internet</option>
+    </select>
+</div>
+
+          <div class="exam-summary"><div class="summary-icon">⏱</div><div><b>Mock Test</b><small>15 minutes <i>•</i> <span id="examSummaryQuestionCount">20</span> questions <i>•</i> 1 mark each</small></div><span class="summary-arrow">↗</span></div>
+          <button class="primary-btn" type="submit">Continue to access code <span>→</span></button>
+          <p class="privacy-note">🔒 Your details are used to identify this practice session.</p>
+          <p id="formError" class="error-message" role="alert"></p>
+        </form>
+      </div>
+      <div class="under-card"><span>✦</span> POWERED BY <b>NOOTECH COMPUTER CENTRE</b></div>
+      <button id="openQuestionManager" class="manager-link" type="button">⚙ Manage question bank (CSV import)</button>
+    </div>
+  </section>
+
+  <section id="questionManager" class="manager-card hidden" aria-labelledby="managerTitle">
+    <button id="closeQuestionManager" class="back-link" type="button">← Back to exam home</button>
+    <div class="eyebrow">ADMIN TOOL · QUESTION BANK</div>
+    <h2 id="managerTitle">Import Mock Test Questions</h2>
+    <p class="card-subtitle">Upload a CSV file containing up to 50 multiple-choice questions per batch. Questions are validated before they are added; existing questions are not overwritten.</p>
+    <div class="manager-warning"><b>Setup required:</b> configure the Google Apps Script Web App URL in <code>app.js</code> to use the central Google Sheets bank. When configured, answer keys are not sent to the browser before submission. The local CSV mode remains available only when the URL is blank.</div>
+    <div class="manager-actions"><button id="downloadCsvTemplate" class="secondary-btn" type="button">↓ Download CSV template</button><label class="upload-label" for="csvFile">Choose CSV file</label><input id="csvFile" type="file" accept=".csv,text/csv" hidden></div>
+    <p class="csv-format"><b>Required CSV columns:</b> <code>question,optionA,optionB,optionC,optionD,answer,explanation</code><br>Answer can be <code>1–4</code> or <code>A–D</code>. Use double quotes around fields containing commas or line breaks.</p>
+    <label for="csvText">Or paste CSV content</label>
+    <textarea id="csvText" class="csv-textarea" rows="8" spellcheck="false" placeholder='question,optionA,optionB,optionC,optionD,answer,explanation&#10;"What does CPU stand for?",Central Processing Unit,Computer Personal Unit,Central Program Utility,Control Processing User,1,"CPU stands for Central Processing Unit."'></textarea>
+    <div class="manager-actions"><button id="validateCsv" class="secondary-btn" type="button">Validate &amp; preview</button><button id="importCsv" class="primary-btn" type="button" disabled>Add valid questions</button></div>
+    <p id="importStatus" class="import-status" role="status" aria-live="polite">No CSV loaded. Download the template to get started.</p>
+    <div id="csvPreview" class="csv-preview"></div>
+    <div class="manager-footer"><span>Questions currently available: <b id="managerQuestionCount">10</b></span><button id="removeImportedQuestions" class="text-danger-btn" type="button">Remove browser-imported questions</button></div>
+  </section>
+
+  <section id="accessSection" class="narrow-card hidden" aria-labelledby="accessTitle">
+    <button class="back-link" id="backToDetails">← Back to candidate details</button>
+    <div class="access-symbol">⌑</div><div class="eyebrow centered">AUTHORIZED CANDIDATES ONLY</div>
+    <h2 id="accessTitle">Enter your access code</h2>
+    <p class="card-subtitle centered">Ask your exam administrator for the code. Questions remain locked until the code is accepted.</p>
+    <form id="accessForm">
+      <label for="accessCode">Examination access code <span>*</span></label>
+      <div class="field"><span class="field-icon">♙</span><input id="accessCode" type="password" autocomplete="off" placeholder="Enter access code" required maxlength="40"></div>
+      <button class="primary-btn" type="submit">Verify &amp; start test <span>→</span></button>
+      <p id="accessError" class="error-message" role="alert"></p>
+    </form>
+    <p class="security-foot">🔐 Demo access code is configured in <code>app.js</code>. Do not use a client-side code for a live/high-stakes exam.</p>
+  </section>
+
+  <section id="examSection" class="exam-layout hidden">
+    <div class="exam-header">
+      <div><div class="eyebrow">MOCK TEST</div><h2>Examination in progress</h2><p id="candidateLine">Candidate session</p></div>
+      <div class="timer-box"><span class="timer-label">TIME REMAINING</span><strong id="timer">15:00</strong><small>Do not leave this screen</small></div>
+    </div>
+    <div class="exam-meta"><span>📋 <b id="questionCount">Question 1 of 20</b></span><span>✓ One mark per correct answer</span><span id="violationBadge" class="violation-badge">Screen alerts: 0 / 4</span></div>
+    <div class="progress-track"><div id="progressBar" class="progress-fill"></div></div>
+    <div class="exam-grid">
+      <article class="question-card">
+        <div class="question-top"><span id="questionTag" class="question-tag">QUESTION 01</span><span class="mark-tag">1 MARK</span></div>
+        <h3 id="questionText">Loading question…</h3>
+        <div id="options" class="options"></div>
+        <div class="question-actions"><button id="previousBtn" class="secondary-btn" type="button">← Previous</button><span id="answeredLabel">0 answered</span><button id="nextBtn" class="primary-btn compact" type="button">Next question →</button></div>
+      </article>
+      <aside class="palette-card"><h3>Question palette</h3><p>Choose a number to navigate.</p><div id="palette" class="palette"></div><div class="palette-legend"><span><i class="legend-dot answered-dot"></i>Answered</span><span><i class="legend-dot current-dot"></i>Current</span><span><i class="legend-dot"></i>Unanswered</span></div><button id="submitBtn" class="submit-btn" type="button">Submit examination <span>→</span></button><small class="palette-note">Submission is final. Review your answers before submitting.</small></aside>
+    </div>
+    <div id="warningBanner" class="warning-banner hidden" role="alert"><span>⚠</span><div><b id="warningTitle">Exam integrity warning</b><p id="warningText">Please remain on the exam screen.</p></div><button id="dismissWarning" type="button" aria-label="Dismiss warning">×</button></div>
+  </section>
+
+  <section id="resultSection" class="result-card hidden">
+    <div class="result-icon" id="resultIcon">✓</div><div class="eyebrow centered">TEST SESSION COMPLETED</div>
+    <h2 id="resultTitle">Your result is ready!</h2><p id="resultCandidateName" class="card-subtitle centered"></p><p id="resultSubtitle" class="card-subtitle centered">Your answers have been evaluated.</p>
+    <div class="score-panel"><div><span>YOUR SCORE</span><strong id="scoreValue">0/10</strong></div><div class="score-divider"></div><div><span>PERCENTAGE</span><strong id="percentageValue">0%</strong></div><div class="score-divider"></div><div><span>ATTEMPTED</span><strong id="attemptedValue">0/10</strong></div></div>
+    <div class="result-details" id="resultDetails"></div>
+    <div class="review-wrap"><h3>Answer review</h3><div id="answerReview"></div></div>
+    <button id="restartBtn" class="primary-btn" type="button">Return to home <span>↗</span></button>
+    <p class="privacy-note">This is your official exam result. generated by our Server.</p>
+  </section>
+</main>
+
+<footer class="footer"><div class="footer-brand"><img src="assets/image/ntcicon.PNG" class="brand-logo"><div><b>NOOTECH COMPUTER CENTRE</b><small>Ashoknagar, Athgarh, Cuttack, Odisha</small></div></div><div class="footer-right"><span>Learn • Practice • Progress</span><small>© 2026 Nootech Computer Centre</small><small class="developer-credit">Developed by Mr. Sarbajit Senapati</small></div></footer>
+<div id="confirmModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="confirmTitle"><div class="modal"><div class="modal-icon">?</div><h2 id="confirmTitle">Submit your examination?</h2><p id="confirmText">Once submitted, you cannot change your answers.</p><div class="modal-actions"><button id="cancelSubmit" class="secondary-btn" type="button">Continue test</button><button id="confirmSubmit" class="submit-btn" type="button">Submit now</button></div></div></div>
+<script src="assets/js/app.js"></script>
+</body></html>
